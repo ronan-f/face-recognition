@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
 import Navigation from './components/navigation/Navigation'
-import 'tachyons';
 import Logo from './components/logo/Logo'
+import Rank from './components/rank/rank'
+import ImageLinkForm from './components/imagelinkform/imageLinkForm'
+import 'tachyons';
+
 
 
 function App() {
@@ -10,8 +13,9 @@ function App() {
     <div className="App">
       <Navigation />
       <Logo />
-      {/*<ImageLinkForm />
-      <FaceRecognition />*/}
+      <Rank />
+      <ImageLinkForm />
+      {/*<FaceRecognition />*/}
     </div>
   );
 }
