@@ -1,9 +1,9 @@
 import React from 'react';
 
-const FaceRecognition = () => {
+const FaceRecognition = ({imageUrl}) => {
     return (
         <div className='center'>
-            <img alt='user pic' src={'https://samples.clarifai.com/face-det.jpg'}/>
+            <img alt='user pic' src={imageUrl}/>
         </div>
     )
 }
