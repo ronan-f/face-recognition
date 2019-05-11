@@ -45,6 +45,13 @@ class App extends Component {
     const image = document.getElementById('inputImage');
     const width = Number(image.width);
     const height = Number(image.height);
+
+    return({
+      leftColumn: clarifaiBox.left_col * width,
+      topRow: clarifaiBox.top_row * height,
+      rightColumn: width - (clarifaiBox.right_col * width),
+      bottomRow: height - (clarifaiBox.bottom_row * height)
+    })
   }
 
   onInputChange = (event) => {
