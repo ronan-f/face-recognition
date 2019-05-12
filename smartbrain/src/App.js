@@ -71,14 +71,14 @@ class App extends Component {
     .catch(err => console.log('something went wrong'));
   }
 
-  onRouteChange = () => {
-    this.setState({route: 'home'})
+  onRouteChange = (route) => {
+    this.setState({route})
   }
 
   render() {
     return (
       <div className="App">
-        <Navigation />
+        <Navigation onRouteChange={this.onRouteChange}/>
         {this.state.route === 'signin' ?
         <div>
           <Logo />
