@@ -79,10 +79,11 @@ class App extends Component {
   }
 
   render() {
+    const {signedIn, route, box, imageUrl} = this.state;
     return (
       <div className="App">
-        <Navigation signedIn={this.state.signedIn} onRouteChange={this.onRouteChange}/>
-        {this.state.route === 'home' ?
+        <Navigation signedIn={signedIn} onRouteChange={this.onRouteChange}/>
+        {route === 'home' ?
         <div>
           <Particles className='particles'
             params={particlesOptions} />
@@ -91,10 +92,10 @@ class App extends Component {
           <ImageLinkForm
           onInput={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}/>
-          <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
+          <FaceRecognition box={box} imageUrl={imageUrl}/>
         </div> :
         (
-          this.state.route === 'signin' ?
+          route === 'signin' ?
 
           <div>
             <Logo />
