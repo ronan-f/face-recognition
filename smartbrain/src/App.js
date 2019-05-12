@@ -39,7 +39,8 @@ class App extends Component {
       input: '',
       imageUrl: '',
       box: {},
-      route: 'signin'
+      route: 'signin',
+      signedIn: false
     }
   }
 
@@ -73,13 +74,14 @@ class App extends Component {
   }
 
   onRouteChange = (route) => {
-    this.setState({route})
+    route === 'home' ? this.setState({signedIn: true}) : this.setState({signedIn: false});
+    this.setState({route});
   }
 
   render() {
     return (
       <div className="App">
-        <Navigation onRouteChange={this.onRouteChange}/>
+        <Navigation signedIn={this.state.signedIn} onRouteChange={this.onRouteChange}/>
         {this.state.route === 'home' ?
         <div>
           <Particles className='particles'
