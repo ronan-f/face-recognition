@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
 import Navigation from './components/navigation/Navigation'
-import Logo from './components/logo/Logo'
-import Signin from './components/singin/Signin'
+import Logo from './components/logo/Logo';
+import Signin from './components/singin/Signin';
+import Register from './components/register/Register'
 import Rank from './components/rank/rank'
 import ImageLinkForm from './components/imagelinkform/imageLinkForm'
 import Particles from 'react-particles-js';
@@ -79,21 +80,32 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation onRouteChange={this.onRouteChange}/>
-        {this.state.route === 'signin' ?
+        {this.state.route === 'home' ?
         <div>
+          <Particles className='particles'
+            params={particlesOptions} />
           <Logo />
-          <Signin onRouteChange={this.onRouteChange}/>
+          <Rank />
+          <ImageLinkForm
+          onInput={this.onInputChange}
+          onButtonSubmit={this.onButtonSubmit}/>
+          <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
         </div> :
-        <div>
-            <Particles className='particles'
-              params={particlesOptions} />
+        (
+          this.state.route === 'signin' ?
+
+          <div>
             <Logo />
-            <Rank />
-            <ImageLinkForm
-            onInput={this.onInputChange}
-            onButtonSubmit={this.onButtonSubmit}/>
-            <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
-        </div>
+            <Signin onRouteChange={this.onRouteChange}/>
+          </div> :
+
+          <div>
+            <Logo />
+            <Register onRouteChange={this.onRouteChange} />
+          </div>
+        )
+
+
 }
       </div>
     );
