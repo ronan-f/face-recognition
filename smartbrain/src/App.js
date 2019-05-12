@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import Navigation from './components/navigation/Navigation'
 import Logo from './components/logo/Logo'
+import Signin from './components/singin/Signin'
 import Rank from './components/rank/rank'
 import ImageLinkForm from './components/imagelinkform/imageLinkForm'
 import Particles from 'react-particles-js';
@@ -73,6 +74,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation />
+        <Signin />
         <Particles className='particles'
             params={particlesOptions}
           />
