@@ -10,11 +10,21 @@ import Particles from 'react-particles-js';
 import FaceRecognition from './components/faceRecognition/FaceRecognition'
 import 'tachyons';
 import Clarifai from 'clarifai';
+import axios from 'axios';
 const API_KEY = process.env.REACT_APP_FACE_KEY;
 
 const app = new Clarifai.App({
   apiKey: API_KEY
  });
+
+ axios.get('http://localhost:3000/')
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
 
 const particlesOptions = {
   particles: {

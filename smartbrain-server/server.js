@@ -3,8 +3,10 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const app = express();
 const saltRounds = 10;
+const cors = require('cors');
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const testDb = {
     users: [
@@ -43,7 +45,11 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signin', (req, res) => {
-    req.body.email === testDb.users[0].email ? res.json('SUCCESS') : res.status(400).json('error user not found');
+    const {email, password} = req.body;
+    email === testDb.users[0].email ? res.json('SUCCESS') : res.status(400).json('error user not found');
+    // bcrypt.compare(password, hash).then(function(res) {
+    //     // res == true
+    // });
 })
 
 app.get('/profile/:id', (req, res) => {
