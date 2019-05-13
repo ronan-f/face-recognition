@@ -34,6 +34,21 @@ app.post('/signin', (req, res) => {
     req.body.email === testDb.users[0].email ? res.json('SUCCESS') : res.status(400).json('error user not found');
 })
 
+app.get('/profile/:id', (req, res) => {
+    const {id} = req.params;
+    let found = false;
+    testDb.users.forEach(user => {
+        if(user.id === Number(id)){
+            found = true;
+            return res.json(user);
+        }
+    })
+
+    if(!found){
+        res.status(404).json('User not found');
+    }
+})
+
 app.post('/register', (req, res) => {
     const {email, name, password} = req.body;
     testDb.users.push({
