@@ -1,18 +1,26 @@
 import React from 'react';
+import axios from 'axios';
 
 class Signin extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             signInEmail: '',
             signInPassword: ''
         }
     }
+
     onEmailChange = (event) => {
         this.setState({signInEmail: event.target.value})
     }
+
     onPasswordChange = (event) => {
         this.setState({signInPassword: event.target.value})
+    }
+
+    onSubmitSignin = () => {
+        console.log('state', this.state);
+        this.props.onRouteChange('home');
     }
     render() {
         const {onRouteChange} = this.props;
@@ -24,16 +32,28 @@ class Signin extends React.Component {
                         <legend className="f2 fw6 ph0 mh0">Sign In</legend>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address" />
+                            <input
+                                className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                                type="email"
+                                name="email-address"
+                                id="email-address"
+                                onChange={this.onEmailChange}
+                            />
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" />
+                            <input
+                                className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                                type="password"
+                                name="password"
+                                id="password"
+                                onChange={this.onPasswordChange}
+                            />
                         </div>
                         </fieldset>
                         <div className="">
                         <input
-                            onClick={() => onRouteChange('home')}
+                            onClick={this.onSubmitSignin}
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                             type="submit"
                             value="Sign in"

@@ -2,7 +2,6 @@ import React from 'react';
 import './face.css'
 
 const FaceRecognition = ({imageUrl, box}) => {
-    console.log('box', box);
     return (
         <div className='center ma'>
             <div className='absolute mt2'>
