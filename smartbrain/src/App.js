@@ -17,14 +17,14 @@ const app = new Clarifai.App({
   apiKey: API_KEY
  });
 
- axios.get('http://localhost:3000/')
-  .then(function (response) {
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
+//  axios.get('http://localhost:3000/')
+//   .then(function (response) {
+//     console.log(response.data);
+//   })
+//   .catch(function (error) {
+//     // handle error
+//     console.log(error);
+//   })
 
 const particlesOptions = {
   particles: {
