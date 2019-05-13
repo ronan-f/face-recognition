@@ -27,11 +27,24 @@ const testDb = {
 }
 
 app.get('/', (req, res) => {
-    res.send('THIS SEEMS TO WORK SO THATS PRETTY GOOD')
+    res.send(testDb.users)
 })
 
 app.post('/signin', (req, res) => {
     req.body.email === testDb.users[0].email ? res.json('SUCCESS') : res.status(400).json('error user not found');
+})
+
+app.post('/register', (req, res) => {
+    const {email, name, password} = req.body;
+    testDb.users.push({
+        id: 125,
+        name: name,
+        email: email,
+        password: password,
+        entries: 0,
+        joined: new Date()
+    })
+    res.json(testDb.users[testDb.users.length - 1])
 })
 
 app.listen(3000, () => {
