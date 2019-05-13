@@ -19,7 +19,15 @@ class Signin extends React.Component {
     }
 
     onSubmitSignin = () => {
-        console.log('state', this.state);
+        axios.post('http://localhost:3000/signin', {
+            email: this.state.signInEmail
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         this.props.onRouteChange('home');
     }
     render() {
