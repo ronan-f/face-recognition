@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 const app = express();
+const saltRounds = 10;
 
 app.use(bodyParser.json());
 
@@ -57,15 +59,17 @@ app.get('/profile/:id', (req, res) => {
 
 app.post('/register', (req, res) => {
     const {email, name, password} = req.body;
-    testDb.users.push({
-        id: 125,
-        name: name,
-        email: email,
-        password: password,
-        entries: 0,
-        joined: new Date()
-    })
-    res.json(testDb.users[testDb.users.length - 1])
+    bcrypt.hash(password, saltRounds).then(function(hash) {
+        testDb.users.push({
+            id: 125,
+            name: name,
+            email: email,
+            password: hash,
+            entries: 0,
+            joined: new Date()
+        })
+        res.json(testDb.users[testDb.users.length - 1])
+    });
 })
 
 app.post('/image', (req, res) => {
