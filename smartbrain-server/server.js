@@ -75,7 +75,8 @@ app.post('/register', (req, res) => {
             entries: 0,
             joined: new Date()
         })
-        res.json(testDb.users[testDb.users.length - 1])
+        const user = testDb.users[testDb.users.length - 1];
+        res.json({ id: user.id, name: user.name, email: user.email, entries: user.entries, joined: user.joined });
     });
 })
 
