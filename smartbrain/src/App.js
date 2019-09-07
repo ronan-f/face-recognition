@@ -40,7 +40,14 @@ class App extends Component {
       imageUrl: '',
       box: {},
       route: 'signin',
-      signedIn: false
+      signedIn: false,
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        entries: 0,
+        joined: ""
+      }
     }
   }
 
@@ -78,6 +85,10 @@ class App extends Component {
     this.setState({route});
   }
 
+  updateUser = (user) => {
+    this.setState({ user });
+  }
+
   render() {
     const {signedIn, route, box, imageUrl} = this.state;
     return (
@@ -104,7 +115,7 @@ class App extends Component {
 
           <div>
             <Logo />
-            <Register onRouteChange={this.onRouteChange} />
+            <Register updateUser={this.updateUser} onRouteChange={this.onRouteChange} />
           </div>
         )
 

@@ -24,7 +24,14 @@ class Register extends React.Component {
             email: emailAddress,
             password
           })
-          .then(res => res.data === "SUCCESS" ? this.props.onRouteChange('home') : console.log("user not auth"))
+          .then(user => {
+              if(user.data) {
+                this.props.updateUser(user.data);
+                this.props.onRouteChange('home');
+              } else {
+                  console.error("Couldn't register user");
+              }
+          })
           .catch(console.error)
     }
 
