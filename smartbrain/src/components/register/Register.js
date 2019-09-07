@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Register extends React.Component {
     constructor(props) {
@@ -16,8 +17,18 @@ class Register extends React.Component {
         })
     }
 
+    onRegister = () => {
+        const { name, emailAddress, password } = this.state;
+        axios.post('http://localhost:3000/register', {
+            name,
+            email: emailAddress,
+            password
+          })
+          .then(res => res.data === "SUCCESS" ? this.props.onRouteChange('home') : console.log("user not auth"))
+          .catch(console.error)
+    }
+
     render() {
-        console.log(this.state);
         return (
             <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
                 <main className="pa4 black-80">
@@ -39,7 +50,7 @@ class Register extends React.Component {
                         </fieldset>
                         <div className="">
                         <input
-                            onClick={() => this.props.onRouteChange('home')}
+                            onClick={ this.onRegister }
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                             type="submit"
                             value="Register"
