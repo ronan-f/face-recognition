@@ -90,7 +90,7 @@ class App extends Component {
   }
 
   render() {
-    const {signedIn, route, box, imageUrl} = this.state;
+    const {signedIn, route, box, imageUrl, user} = this.state;
     return (
       <div className="App">
         <Navigation signedIn={signedIn} onRouteChange={this.onRouteChange}/>
@@ -99,7 +99,7 @@ class App extends Component {
           <Particles className='particles'
             params={particlesOptions} />
           <Logo />
-          <Rank />
+          <Rank name={ user.name } entries={ user.entries } />
           <ImageLinkForm
           onInput={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}/>
