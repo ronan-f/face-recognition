@@ -24,7 +24,14 @@ class Signin extends React.Component {
             email: signInEmail,
             password: signInPassword
           })
-          .then(res => res.data === "SUCCESS" ? this.props.onRouteChange('home') : console.log("user not auth"))
+          .then(res => {
+              if(res.data.id) {
+                  this.props.updateUser(res.data);
+                  this.props.onRouteChange('home');
+              } else {
+                  console.log("User not auth");
+              }
+          })
           .catch(console.error)
     }
     render() {

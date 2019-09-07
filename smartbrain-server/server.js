@@ -46,8 +46,7 @@ app.get('/', (req, res) => {
 
 app.post('/signin', (req, res) => {
     const {email, password} = req.body;
-    email === testDb.users[0].email ? res.json('SUCCESS') : res.status(400).json('error user not found');
-    console.log('testing', req);
+    email === testDb.users[0].email ? res.json(testDb.users[0]) : res.status(400).json('error user not found');
     // bcrypt.compare(password, hash).then(function(res) {
     //     // res == true
     // });

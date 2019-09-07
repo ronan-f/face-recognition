@@ -110,7 +110,7 @@ class App extends Component {
 
           <div>
             <Logo />
-            <Signin onRouteChange={this.onRouteChange}/>
+            <Signin updateUser={this.updateUser} onRouteChange={this.onRouteChange}/>
           </div> :
 
           <div>
