@@ -7,7 +7,8 @@ class Register extends React.Component {
         this.state = {
             name: "",
             emailAddress: "",
-            password: ""
+            password: "",
+            registerError: false
         }
     }
 
@@ -29,10 +30,11 @@ class Register extends React.Component {
                 this.props.updateUser(user.data);
                 this.props.onRouteChange('home');
               } else {
+                  this.setState({ registerError: true })
                   console.error("Couldn't register user");
               }
           })
-          .catch(console.error)
+          .catch(e => { if(e) this.setState({ registerError: true }) })
     }
 
     render() {
@@ -42,6 +44,7 @@ class Register extends React.Component {
                     <div className="measure">
                         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                         <legend className="f2 fw6 ph0 mh0">Register</legend>
+                        { this.state.registerError ? <p className="red b" >Oops! Invalid submission</p> : null}
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
                             <input onChange={ this.handleInput } className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name"  id="name" />
