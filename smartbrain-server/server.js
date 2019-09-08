@@ -72,22 +72,27 @@ app.get('/profile/:id', (req, res) => {
 
 app.post('/register', (req, res) => {
     const {email, name, password} = req.body;
-    bcrypt.hash(password, saltRounds).then(function(hash) {
-        DB('users')
+    const hash = bcrypt.hashSync(password, saltRounds);
+    DB.transaction(t => {
+        t('login')
+        .insert({
+            hash,
+            email
+        })
+        .returning('email')
+        .then(loginEmail => {
+            return t('users')
             .returning('*')
             .insert({
                 name: name,
-                email: email,
+                email: loginEmail[0],
                 joined: new Date()
             })
             .then(user => res.json(user[0]))
-            .catch(e => res.status(400).json("Couldn't register user"))
-        // testDb.users.push({
-
-        //     password: hash,
-
-        // })
-    });
+        })
+        .then(t.commit)
+        .catch(t.rollback)
+    }).catch(e => res.status(400).json("Couldn't register user"))
 })
 
 app.put('/image', (req, res) => {
