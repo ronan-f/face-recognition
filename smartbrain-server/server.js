@@ -57,10 +57,15 @@ app.get('/', (req, res) => {
 
 app.post('/signin', (req, res) => {
     const {email, password} = req.body;
-    email === testDb.users[0].email ? res.json(testDb.users[0]) : res.status(400).json('error user not found');
-    // bcrypt.compare(password, hash).then(function(res) {
-    //     // res == true
-    // });
+    DB('login').select('*').where({ email })
+        .then(async response => {
+            const isValid = bcrypt.compareSync(password, response[0].hash);
+            if(isValid) {
+                const user = await DB('users').select('*').where({ email })
+                res.json(user[0]);
+            } else response.status(400).json("Couldn't sign in")
+        })
+        .catch(e => res.status(400).json("Couldn't sign in"))
 })
 
 app.get('/profile/:id', (req, res) => {
