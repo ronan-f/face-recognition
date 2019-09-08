@@ -4,6 +4,21 @@ const bcrypt = require('bcrypt');
 const app = express();
 const saltRounds = 10;
 const cors = require('cors');
+const knex = require('knex')
+
+const DB = knex({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      user : '',
+      password : '',
+      database : 'smart-brain'
+    }
+  });
+
+const thing = DB.select('*').from('users');
+
+console.log("This is thing", thing);
 
 app.use(bodyParser.json());
 app.use(cors());
