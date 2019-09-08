@@ -79,7 +79,7 @@ app.post('/register', (req, res) => {
     });
 })
 
-app.post('/image', (req, res) => {
+app.put('/image', (req, res) => {
     const {id} = req.body;
     const user = findUser(id);
     if(user){

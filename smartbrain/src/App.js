@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import './App.css';
 import Navigation from './components/navigation/Navigation'
 import Logo from './components/logo/Logo';
@@ -73,10 +74,15 @@ class App extends Component {
     this.setState({input: event.target.value})
   }
 
-  onButtonSubmit = () => {
+  onImageSubmit = () => {
     this.setState({imageUrl: this.state.input})
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-    .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+    .then(response => {
+      this.displayFaceBox(this.calculateFaceLocation(response));
+      axios.put('http://localhost:3000/image', { id: this.state.user.id })
+        .then(res => this.setState({ user: { ...this.state.user, entries: res.data }}))
+        .catch(console.error)
+    })
     .catch(err => console.log('something went wrong'));
   }
 
@@ -102,7 +108,7 @@ class App extends Component {
           <Rank name={ user.name } entries={ user.entries } />
           <ImageLinkForm
           onInput={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}/>
+          onButtonSubmit={this.onImageSubmit}/>
           <FaceRecognition box={box} imageUrl={imageUrl}/>
         </div> :
         (
