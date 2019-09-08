@@ -46,30 +46,29 @@ app.get('/profile/:id', (req, res) => {
 app.post('/register', (req, res) => {
     const {email, name, password} = req.body;
     if(!email || !name || !password) {
-        res.status(400).json("Invalid submission");
-    } else {
-        const hash = bcrypt.hashSync(password, saltRounds);
-        DB.transaction(t => {
-            t('login')
-            .insert({
-                hash,
-                email
-            })
-            .returning('email')
-            .then(loginEmail => {
-                return t('users')
-                .returning('*')
-                .insert({
-                    name: name,
-                    email: loginEmail[0],
-                    joined: new Date()
-                })
-                .then(user => res.json(user[0]))
-            })
-            .then(t.commit)
-            .catch(t.rollback)
-        }).catch(e => res.status(400).json("Couldn't register user"))
+        return res.status(400).json("Invalid submission");
     }
+    const hash = bcrypt.hashSync(password, saltRounds);
+    DB.transaction(t => {
+        t('login')
+        .insert({
+            hash,
+            email
+        })
+        .returning('email')
+        .then(loginEmail => {
+            return t('users')
+            .returning('*')
+            .insert({
+                name: name,
+                email: loginEmail[0],
+                joined: new Date()
+            })
+            .then(user => res.json(user[0]))
+        })
+        .then(t.commit)
+        .catch(t.rollback)
+    }).catch(e => res.status(400).json("Couldn't register user"))
 })
 
 app.put('/image', (req, res) => {
