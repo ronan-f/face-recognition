@@ -19,38 +19,6 @@ const DB = knex({
 app.use(bodyParser.json());
 app.use(cors());
 
-const testDb = {
-    users: [
-        {
-            id: '123',
-            name: 'john',
-            email: 'j@j.com',
-            password: 'test',
-            entries: 0,
-            joined: new Date()
-        },
-
-        {
-            id: '124',
-            name: 'sally',
-            email: 's@s.com',
-            password: 'testing',
-            entries: 0,
-            joined: new Date()
-        }
-    ]
-}
-
-const findUser = (id) => {
-    const db = testDb.users;
-    for(let i = 0; i < db.length; i ++){
-        if(db[i].id === id){
-            return db[i];
-        }
-    }
-    return false;
-}
-
 app.get('/', (req, res) => {
     res.send(testDb.users)
 })
