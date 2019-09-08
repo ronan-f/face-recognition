@@ -6,7 +6,8 @@ class Signin extends React.Component {
         super(props);
         this.state = {
             signInEmail: '',
-            signInPassword: ''
+            signInPassword: '',
+            loginError: false
         }
     }
 
@@ -29,10 +30,11 @@ class Signin extends React.Component {
                   this.props.updateUser(res.data);
                   this.props.onRouteChange('home');
               } else {
+                  this.setState({ loginError: true });
                   console.log("User not auth");
               }
           })
-          .catch(console.error)
+          .catch(this.setState({ loginError: true }));
     }
     render() {
         const {onRouteChange} = this.props;
@@ -42,6 +44,7 @@ class Signin extends React.Component {
                     <div className="measure">
                         <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
                         <legend className="f2 fw6 ph0 mh0">Sign In</legend>
+                        { this.state.loginError ? <p className="red b" >Oops! Incorrect login</p> : null}
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
                             <input
