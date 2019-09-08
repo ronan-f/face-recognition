@@ -37,6 +37,7 @@ class App extends Component {
     super();
 
     this.state = {
+      loading: false,
       input: '',
       imageUrl: '',
       box: {},
@@ -75,9 +76,10 @@ class App extends Component {
   }
 
   onImageSubmit = () => {
-    this.setState({imageUrl: this.state.input})
+    this.setState({ imageUrl: this.state.input, loading: true })
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
     .then(response => {
+      this.setState({ loading: false })
       this.displayFaceBox(this.calculateFaceLocation(response));
       axios.put('http://localhost:3000/image', { id: this.state.user.id })
         .then(res => this.setState({ user: { ...this.state.user, entries: res.data }}))
@@ -96,7 +98,7 @@ class App extends Component {
   }
 
   render() {
-    const {signedIn, route, box, imageUrl, user} = this.state;
+    const {signedIn, route, box, imageUrl, user, loading} = this.state;
     return (
       <div className="App">
         <Navigation signedIn={signedIn} onRouteChange={this.onRouteChange}/>
@@ -109,7 +111,7 @@ class App extends Component {
           <ImageLinkForm
           onInput={this.onInputChange}
           onButtonSubmit={this.onImageSubmit}/>
-          <FaceRecognition box={box} imageUrl={imageUrl}/>
+          <FaceRecognition loading={ loading } box={box} imageUrl={imageUrl}/>
         </div> :
         (
           route === 'signin' ?
