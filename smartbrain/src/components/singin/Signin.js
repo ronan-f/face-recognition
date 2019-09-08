@@ -34,7 +34,7 @@ class Signin extends React.Component {
                   console.log("User not auth");
               }
           })
-          .catch(this.setState({ loginError: true }));
+          .catch(console.error);
     }
     render() {
         const {onRouteChange} = this.props;
