@@ -65,13 +65,9 @@ app.post('/signin', (req, res) => {
 
 app.get('/profile/:id', (req, res) => {
     const {id} = req.params;
-    const user = findUser(id);
-    if(user){
-        res.json(user);
-    } else {
-        res.status(404).json('user not found')
-    }
-
+    DB('users').select('*').where({ id })
+        .then(user => user.length ? res.json(user[0]) : res.status(400).json('User not found'))
+        .catch(e => res.status(400).json('User not found'));
 })
 
 app.post('/register', (req, res) => {
@@ -85,6 +81,7 @@ app.post('/register', (req, res) => {
                 joined: new Date()
             })
             .then(user => res.json(user[0]))
+            .catch(e => res.status(400).json("Couldn't register user"))
         // testDb.users.push({
 
         //     password: hash,
