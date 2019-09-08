@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send(testDb.users)
+    res.send("It's working")
 })
 
 app.post('/signin', (req, res) => {
@@ -81,5 +81,5 @@ app.put('/image', (req, res) => {
 })
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log('Listening on 3000')
+    console.log(`Listening on ${process.env.PORT || 3000}`)
 })
