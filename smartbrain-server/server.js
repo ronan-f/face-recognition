@@ -80,6 +80,6 @@ app.put('/image', (req, res) => {
         .catch(e => res.status(400).json("Couldn't increment entries"));
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('Listening on 3000')
 })
