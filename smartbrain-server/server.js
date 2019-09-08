@@ -16,10 +16,6 @@ const DB = knex({
     }
   });
 
-const thing = DB.select('*').from('users');
-
-console.log("This is thing", thing);
-
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -81,16 +77,19 @@ app.get('/profile/:id', (req, res) => {
 app.post('/register', (req, res) => {
     const {email, name, password} = req.body;
     bcrypt.hash(password, saltRounds).then(function(hash) {
-        testDb.users.push({
-            id: 125,
-            name: name,
-            email: email,
-            password: hash,
-            entries: 0,
-            joined: new Date()
-        })
-        const user = testDb.users[testDb.users.length - 1];
-        res.json({ id: user.id, name: user.name, email: user.email, entries: user.entries, joined: user.joined });
+        DB('users')
+            .returning('*')
+            .insert({
+                name: name,
+                email: email,
+                joined: new Date()
+            })
+            .then(user => res.json(user[0]))
+        // testDb.users.push({
+
+        //     password: hash,
+
+        // })
     });
 })
 
