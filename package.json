@@ -1,5 +1,6 @@
 {
   "scripts": {
-    "postinstall": "cd smartbrain-server && npm install"
+    "postinstall": "cd smartbrain-server && npm install",
+    "start": "cd smartbrain-server && node server.js"
   }
 }
