@@ -32,25 +32,27 @@ const particlesOptions = {
   }
 }
 
+const defaultState = {
+  loading: false,
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  signedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    entries: 0,
+    joined: ""
+  }
+}
+
 class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-      loading: false,
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      signedIn: false,
-      user: {
-        id: "",
-        name: "",
-        email: "",
-        entries: 0,
-        joined: ""
-      }
-    }
+    this.state = defaultState;
   }
 
   calculateFaceLocation = (data) => {
@@ -89,7 +91,7 @@ class App extends Component {
   }
 
   onRouteChange = (route) => {
-    route === 'home' ? this.setState({signedIn: true}) : this.setState({signedIn: false});
+    route === 'home' ? this.setState({signedIn: true}) : this.setState(defaultState);
     this.setState({route});
   }
 
