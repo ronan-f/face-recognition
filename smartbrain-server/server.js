@@ -92,15 +92,11 @@ app.post('/register', (req, res) => {
 
 app.put('/image', (req, res) => {
     const {id} = req.body;
-    const user = findUser(id);
-    if(user){
-        user.entries ++;
-        return res.json(user.entries)
-    } else {
-        res.status(404).json('user not found');
-    }
-
-
+    DB('users').where({ id })
+        .increment('entries', 1)
+        .returning('entries')
+        .then(entries => entries.length ? res.json(entries[0]) : res.status(400).json("Couldn't increment entries"))
+        .catch(e => res.status(400).json("Couldn't increment entries"));
 })
 
 app.listen(3000, () => {
