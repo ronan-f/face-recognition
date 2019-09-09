@@ -11,10 +11,10 @@ import Particles from 'react-particles-js';
 import FaceRecognition from './components/faceRecognition/FaceRecognition'
 import 'tachyons';
 import Clarifai from 'clarifai';
-// const API_KEY = process.env.REACT_APP_FACE_KEY;
+const API_KEY = process.env.REACT_APP_FACE_KEY;
 
 const app = new Clarifai.App({
-  apiKey: "301e652be2f441eab13c4cf835c97cf1"
+  apiKey: API_KEY
  });
 
 const particlesOptions = {
