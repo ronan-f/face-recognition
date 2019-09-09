@@ -20,7 +20,7 @@ class Register extends React.Component {
 
     onRegister = () => {
         const { name, emailAddress, password } = this.state;
-        axios.post('http://localhost:3000/register', {
+        axios.post('https://afternoon-inlet-30408.herokuapp.com/register', {
             name,
             email: emailAddress,
             password

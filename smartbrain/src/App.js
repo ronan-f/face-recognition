@@ -83,7 +83,7 @@ class App extends Component {
     .then(response => {
       this.setState({ loading: false })
       this.displayFaceBox(this.calculateFaceLocation(response));
-      axios.put('http://localhost:3000/image', { id: this.state.user.id })
+      axios.put('https://afternoon-inlet-30408.herokuapp.com/image', { id: this.state.user.id })
         .then(res => this.setState({ user: { ...this.state.user, entries: res.data }}))
         .catch(console.error)
     })
